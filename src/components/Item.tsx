@@ -3,16 +3,14 @@ interface ListItem {
     distance: string,
     id: number,
     onClickDelete: (id: number) => void,
-    onClickUpdate: (e: React.MouseEvent<HTMLButtonElement>) => void,
 }
 
-const Item = ({date, distance, id, onClickDelete, onClickUpdate}:ListItem) => {
+const Item = ({date, distance, id, onClickDelete}:ListItem) => {
   return (
     <div className="list__item" key={id}>
         <span className="list__data">{date}</span>
         <span className="list__distance">{distance}</span>
-        <button type="button" onClick={onClickUpdate}>✏️</button>
-        <button type="button" onClick={() => onClickDelete(id)}>X</button>
+        <button type="button" onClick={() => onClickDelete(id)}>x</button>
     </div>
   )
 }

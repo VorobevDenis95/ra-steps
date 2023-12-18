@@ -5,11 +5,24 @@
   text-align: center;
 }
 
-.button {
-  margin-left: 10px;
+button {
+  border: none;
+  background-color: none;
+  color: aliceblue;
 }
 
-span {
-  margin-left: 10px;
+
+.title__container {
+  display: flex;
+  justify-content: space-evenly;
 }
 
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.list__item {
+  display: flex;
+  justify-content: space-between;
+}

@@ -5,14 +5,12 @@ import uuid from 'react-uuid'
 import { ListItem } from './components/Item'
 function App() {
 
-  // const list: { date: string; distance: string }[] = [] ;
+  const [list, setList] = useState<Array<ListItem>>([])
 
-  const [list, setList] = useState<ListItem>([])
-
-  const [data, setData] = useState<{date: string, distance: string, id: number}>({
+  const [data, setData] = useState<{date: string, distance: string, id: string}>({
     date: '',
     distance: '',
-    id: 0,
+    id: '',
   })
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,42 +24,34 @@ function App() {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (list.map(it => it.date).includes(data.date)) {
-      // setList(list.map(element => {
-      //   if (element.date === data.date) {
-      //     element.distance = '12';
-      //   }
-      // }))
-
+    if (list.map((it: { date: string }) => it.date).includes(data.date)) {
       const newList = list.slice(0);
-      const el = newList.find(el => el.date === data.date);
-      console.log(data);
-      
+      const el = newList.find((el: ListItem) => el.date === data.date);
+
       el.distance = String(Number(el.distance) + Number(data.distance));  
-      console.log(data);
+
       setList([...newList]);
+      e.target[0].value = '';
+      e.target[1].value = '';
     } else {
-      setList((prevState) => {
-        return [...prevState, data]
-      })
-      // setList([...list, data].sort((a, b) => {
-      //   if (a.date < b.date) return -1;
-      //   if (a.date > b.date) return 1;
-      //   if (a.date === b.date) return 0;
-      // }))
-      console.log(list);
+
+
+       setList((prevState: ListItem[] ) => {
+        return [...prevState, data].sort((a: ListItem, b: ListItem) => {
+        if (a.date < b.date) return -1;
+        if (a.date > b.date) return 1;
+        if (a.date === b.date) return 0;
+      })});
+      e.target[0].value = '';
+      e.target[1].value = '';
+      
     }
   }
 
   const handleDeleteItem = (id: number) :void=> {
-    setList((prevState) => {
-      return prevState.filter((list) => list.id !== id)
+    setList((prevState: ListItem[]) => {
+      return prevState.filter((list: { id: number }) => list.id !== id)
     })
-    console.log(id);
-  }
-
-  const onClickUpdate = (e: React.MouseEvent<HTMLButtonElement>) :void=> {
-    console.log(e)
   }
 
   return (
@@ -71,10 +61,8 @@ function App() {
             <input type='number' step={0.1} id='distance' onChange={onChange} required/>
             <button type="submit">Ок</button>
           </form>
-          <List onClickUpdate={onClickUpdate} onClickDelete={handleDeleteItem} list={list}/>
-
+          <List onClickDelete={handleDeleteItem} list={list}/>
     </div>
-
   )
 }
 
