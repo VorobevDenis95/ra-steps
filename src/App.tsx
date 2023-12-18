@@ -9,9 +9,10 @@ function App() {
 
   const [list, setList] = useState<ListItem>([])
 
-  const [data, setData] = useState({
+  const [data, setData] = useState<{date: string, distance: string, id: number}>({
     date: '',
     distance: '',
+    id: 0,
   })
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,13 +49,13 @@ function App() {
       //   if (a.date > b.date) return 1;
       //   if (a.date === b.date) return 0;
       // }))
-      console.log(data);
+      console.log(list);
     }
   }
 
   const handleDeleteItem = (id: number) :void=> {
     setList((prevState) => {
-      prevState.filter((list) => list.id !== id)
+      return prevState.filter((list) => list.id !== id)
     })
     console.log(id);
   }

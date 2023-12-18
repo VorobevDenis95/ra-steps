@@ -12,7 +12,7 @@ const Item = ({date, distance, id, onClickDelete, onClickUpdate}:ListItem) => {
         <span className="list__data">{date}</span>
         <span className="list__distance">{distance}</span>
         <button type="button" onClick={onClickUpdate}>✏️</button>
-        <button type="button" onClick={onClickDelete}>X</button>
+        <button type="button" onClick={() => onClickDelete(id)}>X</button>
     </div>
   )
 }
