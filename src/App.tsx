@@ -7,10 +7,11 @@ function App() {
 
   const [list, setList] = useState<Array<ListItem>>([])
 
-  const [data, setData] = useState<{date: string, distance: string, id: string}>({
+  const [data, setData] = useState<ListItem>({
     date: '',
     distance: '',
     id: '',
+    // onClickDelete: (id:string) => void,
   })
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +28,7 @@ function App() {
     if (list.map((it: { date: string }) => it.date).includes(data.date)) {
       const newList = list.slice(0);
       const el = newList.find((el: ListItem) => el.date === data.date);
-
+      if (!el) return;
       el.distance = String(Number(el.distance) + Number(data.distance));  
 
       setList([...newList]);
@@ -38,6 +39,7 @@ function App() {
 
        setList((prevState: ListItem[] ) => {
         return [...prevState, data].sort((a: ListItem, b: ListItem) => {
+        if (a === undefined || b === undefined) return;
         if (a.date < b.date) return -1;
         if (a.date > b.date) return 1;
         if (a.date === b.date) return 0;
@@ -48,9 +50,9 @@ function App() {
     }
   }
 
-  const handleDeleteItem = (id: number) :void=> {
+  const handleDeleteItem = (id: string) :void=> {
     setList((prevState: ListItem[]) => {
-      return prevState.filter((list: { id: number }) => list.id !== id)
+      return prevState.filter((list: { id: string }) => list.id !== id)
     })
   }
 

@@ -1,8 +1,8 @@
 interface ListItem {
     date: string,
     distance: string,
-    id: number,
-    onClickDelete: (id: number) => void,
+    id: string,
+    onClickDelete: (id: string) => void,
 }
 
 const Item = ({date, distance, id, onClickDelete}:ListItem) => {

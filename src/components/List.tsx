@@ -3,7 +3,7 @@ import Item from "./Item";
 
 interface ListProps {
     list: ListItem[],
-    onClickDelete: (id: number) => void,
+    onClickDelete: (id: string) => void,
 }
 
 const List = ({list = [], onClickDelete}: ListProps) => {
@@ -15,7 +15,7 @@ const List = ({list = [], onClickDelete}: ListProps) => {
           <span>Пройдено км</span>
     </div>
  
-    { list.map((item: { date: string; distance: string; id: number })=> (
+    { list.map((item: { date: string; distance: string; id: string })=> (
         <Item id={item.id} onClickDelete={onClickDelete} key={item.id}  date={item.date} distance={item.distance}/>
     ))}
     </div>
